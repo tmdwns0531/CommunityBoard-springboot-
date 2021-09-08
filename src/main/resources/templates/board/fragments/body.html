@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body th:fragment="main-body">
+	<th:block layout:fragment="script"></th:block>
+
+	<div class="fixed-navbar">
+		<div class="pull-left">
+			<div style="color: white">
+				<h1 class="page-title">
+					<th:block layout:fragment="sub-title"></th:block>
+				</h1>
+			</div>
+		</div>
+
+		<div class="ui floating dropdown labeled icon button dr-btn"
+			style="position: absolute; right: 2rem; top: 2rem;">
+			<i class="bars icon"></i>
+			<span class="text">menu</span>
+			<div class="menu" style="width : 20rem;">
+				<!-- 
+				<div class="ui icon search input">
+					<i class="search icon"></i>
+					<input type="text" placeholder="Search tags...">
+				</div>
+			 -->
+				<div class="divider"></div>
+				<div class="header">
+					<i class="tags icon"></i>
+					Tag Label
+				</div>
+				<div class="scrolling menu">
+					<div class="item" onclick="location.href='/'">
+						<div class="ui red empty circular label"></div>
+						홈으로
+					</div>
+					<div class="item" onclick="location.href='/member/loginForm'">
+						<div class="ui blue empty circular label"></div>
+						로그인하러가기
+					</div>
+					<div class="item" onclick="location.href='/board/list'">
+						<div class="ui blue empty circular label"></div>
+						커뮤니티 게시판
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.fixed-navbar -->
+
+	<div id="wrapper">
+		<div class="main-content">
+			<div class="row row-inline-block small-spacing" id="outline">
+				<div class="col-xs-12">
+					<div class="box-content">
+						<div class="clearfix">
+							<h4 class="box-title pull-left"></h4>
+							<!-- /.box-title -->
+							<th:block layout:fragment="search"></th:block>
+						</div>
+						<!-- //.clearfix -->
+
+						<th:block layout:fragment="content"></th:block>
+
+						<th:block layout:fragment="paging"></th:block>
+					</div>
+					<!-- /.box-content -->
+					<th:block layout:fragment="add-content"></th:block>
+				</div>
+				<!-- /.col-xs-12 -->
+			</div>
+			<!-- /.row row-inline-block small-spacing -->
+			<footer class="footer">
+				<ul class="list-inline">
+					<li>2021 © msjAdmin.</li>
+				</ul>
+			</footer>
+		</div>
+		<!-- /.main-content -->
+	</div>
+	<!-- /#wrapper -->
+
+	<script>
+		$('.ui.dropdown').dropdown();
+		
+	</script>
+
+</body>
+</html>

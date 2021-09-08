@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="board/layout/basic">
+<th:block layout:fragment="title">
+	<title>게시글 등록</title>
+</th:block>
+<th:block layout:fragment="add-css">
+	<style>
+#out-lay {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+</style>
+</th:block>
+<th:block layout:fragment="sub-title">커뮤니티 게시판</th:block>
+<th:block layout:fragment="content">
+
+	<h3>
+		이곳은 커뮤니티 게시판 입니다. &ensp;
+		<span th:if="${session.loginUser ne null}"
+			th:text="${session.loginUser.nickname + ' [ '+ session.loginUser.id + ' ] ' + ' 님 ! 안녕하세요'}"></span>
+	</h3>
+	<br>
+	<br>
+
+	<div id="out-lay">
+		<table class="table" style="border: 1px solid lightgray;">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">아이디</th>
+					<th scope="col" style="width : 20rem;">제목</th>
+					<th scope="col" style="width : 50rem;">게시글 내용</th>
+					<th scope="col">등록일</th>
+					<th scope="col" style="width : 5rem;">비고</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="tr" th:each="board : ${boardList}">
+					<td th:text="${board.idx}"></td>
+					<td th:text="${board.memId}"></td>
+					<td th:text="${board.title}"></td>
+					<td th:text="${board.content}"></td>
+					<td th:text="${board.insertTime}"></td>
+					<td
+						th:if="${session.loginUser ne null && #strings.equals(board.memId, session.loginUser.id)}">
+						<input type="button" value="삭제" class="dltBtn" style="margin-bottom: 0.6rem" />
+						<input type="button" value="수정" class="rvsBtn" />
+						<input type="hidden" name="idx" th:value="${board.idx}" class="tableIdx" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="d-grid gap-2 col-6 mx-auto" style="height: 4rem; display: inline-block;">
+			<button class="btn btn-primary btn-sm toReg" type="button">게시글 등록하러 가기</button>
+		</div>
+	</div>
+	<input type="hidden" th:if="${session.loginUser ne null}"
+		th:value="${session.loginUser.id}" id="userID"></input>
+	<input type="hidden" th:unless="${session.loginUser ne null}" value="" id="userID"></input>
+</th:block>
+
+<th:block layout:fragment="script">
+	<script type="text/javascript" th:inline="javascript">
+	window.onload = function() {
+        const rvs = document.getElementById('rvsBtn');
+        let idx;
+        
+       $('.dltBtn').click((event)=>{
+           idx = $(event.currentTarget).next().next().val();
+           location.href='/board/delete?idx=' + idx;
+       })
+       
+       $('.rvsBtn').click((event)=>{
+           idx = $(event.currentTarget).next().val();
+           location.href='/board/boardForm?idx=' + idx;
+       })
+       
+       $('.toReg').click(()=>{
+    	   
+    	   if($('#userID').val().length==0){
+    		   alert('로그인 후 이용 가능합니다');
+    		   return;
+    	   }
+    	   
+    	   location.href='/board/boardForm';
+       })
+     
+	}
+ </script>
+</th:block>
+
+</html>

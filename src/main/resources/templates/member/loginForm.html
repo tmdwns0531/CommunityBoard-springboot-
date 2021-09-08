@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="/board/layout/basic">
+
+<head>
+
+<th:block layout:fragment="title">
+	<title>로그인/회원가입</title>
+</th:block>
+
+
+<th:block layout:fragment="add-css">
+	<style>
+
+ #inputPassword{
+ 	margin-bottom : 2rem;
+ }
+	
+#inputId, #inputPassword {
+	width: 30rem;
+}
+
+.form-signin {
+	display: inline-block;
+}
+
+input[type="button"] {
+	margin: 1rem;
+	height: 4rem;
+}
+
+
+</style>
+</th:block>
+</head>
+<body>
+	<th:block layout:fragment="sub-title">로그인 / 회원가입</th:block>
+
+	<th:block layout:fragment="content">
+		<main class="form-signin" >
+			<form name="frm" method="post">
+				<i class="users icon" style="font-size: 4rem;"></i>
+				<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+				<label for="inputId" class="visually-hidden"></label>
+				<input type="text" id="inputId" class="form-control" placeholder="input your ID"
+					required autofocus name="id">
+				<label for="inputPassword" class="visually-hidden"></label>
+				<input type="password" id="inputPassword" class="form-control"
+					placeholder="input your Password" required name="pw">
+				<input class="w-100 btn btn-lg btn-primary sign-in" type="button" value="로그인" />
+				<input class="w-100 btn btn-lg btn-primary sign-up" type="button" value="회원가입" /><br><br>
+				<a href="#">아이디 / 패스워드 찾기 </a>&ensp; | &ensp; 
+				<a href="#">비밀번호 찾기</a>
+			</form>
+		</main>
+	</th:block>
+
+
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+		window.onload = function() {
+			$('.sign-in').click(()=>{
+				
+				if($('#inputId').val().trim().length==0){
+					alert('아이디를 입력 해 주세요');
+					return;
+				}else if($('#inputPassword').val().trim().length==0){
+					alert('패스워드를 입력 해 주세요');
+					return;					
+				}
+				
+				const frm = document.frm;
+				frm.action = '/member/login';
+				frm.submit();
+			})		
+			
+			$('.sign-up').click(()=>{
+				location.href='/app/member/joinForm.html';
+			})
+		}
+		</script>
+	</th:block>
+</body>
+</html>

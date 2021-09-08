@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>Document</title>
+</head>
+<body>
+	<table>
+		<caption>
+			회원 명부
+		</caption>
+		<thead>
+			<tr>
+				<th>아이디</th>
+				<th>비밀번호</th>
+				<th>이름</th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr th:each="mem : ${memList}">
+					<td th:text="${mem.id}"></td>
+					<td th:text="${mem.pw}"></td>
+					<td th:text="${mem.name}"></td>
+				</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mapper.MainMapper">
+
+	<sql id="memberColumn">
+		id
+		,pw
+		,name
+		,email
+		,nickname
+		,address
+		,join_path
+	</sql>
+
+	<select id="getMemberList" resultType="memberVo">
+		SELECT
+		<include refid="memberColumn"></include>
+		FROM
+		member
+	</select>
+
+	<select id="checkMember" resultType="memberVo">
+		SELECT
+		<include refid="memberColumn"></include>
+		FROM
+		member
+		WHERE id = #{_id}
+		AND pw = #{_pw}
+	</select>
+
+	<select id="checkOverlapId" resultType="string">
+		SELECT id
+		FROM
+		member
+		WHERE
+		id = #{_id}
+	</select>
+
+	<insert id="joinMember" parameterType="MemberVo">
+		INSERT INTO member
+		VALUES
+		(#{id},#{pw},#{name},#{email},#{nickname},#{address},#{joinPath}, 'user')
+	</insert>
+
+</mapper>
