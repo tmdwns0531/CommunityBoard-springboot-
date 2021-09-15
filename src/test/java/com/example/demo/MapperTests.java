@@ -1,3 +1,4 @@
+/*
 package com.example.demo;
 
 import java.util.List;
@@ -86,7 +87,8 @@ class MapperTests {
 			}
 		}
 	}
-
+	
+	
 	@Test
 	public void testMultipleInsert() {
 		for (int i = 2; i <= 50; i++) {
@@ -96,6 +98,7 @@ class MapperTests {
 			boardMapper.insertBoard(params);
 		}
 	}
+	
 	
 	@Test
 	public void testSelectList() {
@@ -112,3 +115,4 @@ class MapperTests {
 		}
 	}
 }
+ */

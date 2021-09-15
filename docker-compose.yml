@@ -1,0 +1,44 @@
+version: '3.2'
+services:   # database , application 컨테이너 
+
+  database:  # 우분투 서버의 mysql db 컨테이너를 생성 및 실행하기위함  
+    container_name: mysql-container
+    image: mysql
+    volumes:
+    - /home/docker/mysql/etc/mysql/conf.d:/etc/mysql/conf.d:ro
+    - /home/docker/mysql/var/lb/mysql:/var/lib/mysql
+    - /home/docker/mysql/var/log/mysql:/var/log/mysql
+    environment:
+    - MYSQL_DATABASE=board
+    - MYSQL_ROOT_PASSWORD=pass123
+    - MYSQL_ROOT_HOST=%
+    command:
+    - --character-set-server=utf8mb4
+    - --collation-server=utf8mb4_unicode_ci
+    ports:
+    - 3306:3306
+    networks: 
+    - test_network_02
+    
+    
+  application: # mysql 컨테이너를 실행하였으면 이제 mysql 에 접속 
+    build: .
+    restart: always
+    container_name: app_board
+    #environment:
+      #SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/board?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      #SPRING_DATASOURCE_USERNAME: msj0533
+      #SPRING_DATASOURCE_PASSWORD: pass123
+    ports:
+    - 8090:8080
+    depends_on:
+    - database
+    networks: 
+    - test_network_02
+    
+    
+networks: test_network_02
+    
+    # sudo docker compose up -d 에 의해 같은 그룹 내 application , database 컨테이너들이 compose 에 의해 전체실행 
+    # 해당 명령문을 통해  docker-compose.yml 을 서칭하게 되고 database 요소 내 컨텐츠로 컨테이너를 자동 실행하고 
+    # 이렇게 안하면 각 컨테이너들을 별도 실행하고 추가작업? 이 필요함 

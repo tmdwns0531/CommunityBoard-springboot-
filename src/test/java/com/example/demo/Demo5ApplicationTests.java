@@ -3,13 +3,19 @@ package com.example.demo;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ImportResource;
 
 import com.board.Demo5Application;
 
 @SpringBootTest(classes = Demo5Application.class)
+@ImportResource({"classpath:/application.yml"})
 class Demo5ApplicationTests {
+	
+	@Value("${mybatis.mapper-locations}")
+	private String mapperLoacations;
 
 	@Autowired
 	private ApplicationContext context;
@@ -45,4 +51,9 @@ class Demo5ApplicationTests {
 		}
 	}
 
+	
+	@Test
+	public void test() {
+		System.out.println(mapperLoacations);
+	}
 }

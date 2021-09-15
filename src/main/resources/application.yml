@@ -1,0 +1,37 @@
+--- #server 설정
+server : 
+ port : 80   # AWS
+ #port : 8092  # local
+ servlet : 
+  encoding : 
+     charset : UTF-8
+     enabled : true
+     force : true
+
+--- #데이터소스 
+spring:
+  datasource:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     
+     # AWS 
+     jdbc-url: jdbc:mysql://mysql-container:3306/board?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+     username: msj0533
+     password: pass123
+     
+     # local
+     #jdbc-url: jdbc:mysql://localhost:3306/board?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false 
+     #username: root
+     #password: 85010531
+    
+
+--- #마이바티스 설정
+mybatis:
+    configuration:
+        map-underscore-to-camel-case: true
+        jdbc-type-for-null: varchar
+        multiple-result-sets-enabled: false
+        call-setters-on-nulls: true
+        default-fetch-size: 500
+    mapper-locations: classpath:/mappers/**/*Mapper.xml
+
+
