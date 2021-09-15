@@ -32,7 +32,7 @@ public class BoardController {
 		List<BoardVo> li = service.selectBoardList();
 
 		model.addAttribute("boardList", li);
-		return "/board/boardList";
+		return "board/boardList";
 	}
 
 	@PostMapping("/insert")
@@ -96,7 +96,7 @@ public class BoardController {
 		}
 
 		// 게시글 수정
-		return "/board/boardForm";
+		return "board/boardForm";
 	}
 
 }

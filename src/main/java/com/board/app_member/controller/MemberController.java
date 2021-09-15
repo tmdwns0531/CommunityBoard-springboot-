@@ -64,7 +64,7 @@ public class MemberController {
 		}
 
 		model.addAttribute("memList", list);
-		return "/member/memberList";
+		return "member/memberList";
 	}
 
 	@ResponseBody
